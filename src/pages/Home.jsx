@@ -16,7 +16,7 @@ const Introduce = () => {
       setLoading(true);
       try {
         const token = await getAccessTokenSilently();
-        const response = await fetch("http://localhost:3001/api/mentors", {
+        const response = await fetch("http://localhost:3001/api/user/mentors", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const data = await response.json();
