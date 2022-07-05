@@ -1,70 +1,47 @@
-# Getting Started with Create React App
+# Auth0 - MERN Stack Mentorship Platform
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A full stack web app designed based upon figma file given with authentication handled by OAuth. Backend is built Node.js (Express) connected to MongoDb Atlas via Mongoose and Frontend is build using React. 2 servers are built, one to serve the static files from React and another to handle all api authentication. In production, this is likely to be hosted on 2 separate servers to handle the traffic.
 
-## Available Scripts
+## Project Setup
 
-In the project directory, you can run:
+```
+docker build -t mono-mentorship .
+docker run -dp 3000:3000 3001:3001 mono-mentorship
+```
 
-### `npm start`
+## Configure credentials
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The project needs to be configured with your Auth0 domain and client ID in order for the authentication flow to work or alternatively, use the default credentials provided
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+To do this, head to `src/auth-config.json` and replace the values from the one you gotten from Auth0
 
-### `npm test`
+```{json}
+{
+  "domain": "{YOUR AUTH0 DOMAIN}",
+  "audience": "{YOUR AUTH0 API_IDENTIFIER}",
+  "clientID": "{YOUR AUTH0 CLIENT ID}"
+}
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
 
-### `npm run build`
+## Deployment
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Compiles and minifies for production
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+# Run Docker on Prod Server and execute the Dockerfile
+# Alternatively
+npm run build
+npm run prod
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## What could be improved
 
-### `npm run eject`
+1. Use of more robust state management like Redux
+2. Writing test cases for codes and APIs
+3. Better handling for authentication and user management
+4. Use of better process manager instead of NPM
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```
