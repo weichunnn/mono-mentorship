@@ -1,9 +1,9 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { Button, Container } from "rsuite";
+import Header from "../components/Header";
 
 export default function Login() {
   const { loginWithRedirect } = useAuth0();
-
   return (
     <div
       style={{
@@ -14,14 +14,15 @@ export default function Login() {
       }}
     >
       <Container>
-        <h1>Getting Started</h1>
-        <p>Esse tempor velit sit.</p>
-        <Container style={{ marginTop: "20px" }}>
+        <Header subtitle={"Esse tempor velit sit."}>Getting Started.</Header>
+        <Container>
           <Button
             appearance="primary"
             size="lg"
             block
-            onClick={() => loginWithRedirect()}
+            onClick={async () => {
+              await loginWithRedirect();
+            }}
           >
             Sign In
           </Button>
