@@ -1,7 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import "rsuite/dist/rsuite.min.css";
+import "@fontsource/dm-sans";
+import "./index.css";
+
 import App from "./App";
 import Auth0ProviderWithHistory from "./auth/AuthWithHistory";
 import { BrowserRouter } from "react-router-dom";
