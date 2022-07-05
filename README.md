@@ -6,7 +6,7 @@ A full stack web app designed based upon figma file given with authentication ha
 
 ```
 docker build -t mono-mentorship .
-docker run -dp 3000:3000 3001:3001 mono-mentorship
+docker run -dp 3000:3000 -p 3001:3001 mono-mentorship
 ```
 
 ## Configure credentials
