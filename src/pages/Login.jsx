@@ -1,6 +1,7 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { Button, Container } from "rsuite";
+import { Container } from "rsuite";
 import Header from "../components/Header";
+import Button from "../components/Button";
 
 export default function Login() {
   const { loginWithRedirect } = useAuth0();

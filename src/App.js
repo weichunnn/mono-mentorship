@@ -5,7 +5,13 @@ import cn from "classnames";
 function App() {
   return (
     <div className={cn(["App", styles.wrapper])}>
-      <div style={{ padding: "16px", height: "100%" }}>
+      <div
+        style={{
+          padding: "20px",
+          paddingTop: "40px",
+          height: "100%",
+        }}
+      >
         <AppRouter />
       </div>
     </div>

@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { Button, Container, Input } from "rsuite";
+import { Input } from "rsuite";
 import { withAuthenticationRequired, useAuth0 } from "@auth0/auth0-react";
+import { useNavigate } from "react-router";
+
 import Loading from "../components/Loading";
 import Header from "../components/Header";
-import { useNavigate } from "react-router";
+import Button from "../components/Button";
 
 const Introduce = () => {
   const navigate = useNavigate();
   const { user, getAccessTokenSilently } = useAuth0();
-
   const [profile, setProfile] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -16,7 +17,7 @@ const Introduce = () => {
     setLoading(true);
     try {
       const token = await getAccessTokenSilently();
-      const response = await fetch("http://localhost:3001/api/user/profile", {
+      await fetch("http://localhost:3001/api/user/profile", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -25,7 +26,6 @@ const Introduce = () => {
         },
         body: JSON.stringify({ profile, email: user.email }),
       });
-      const data = await response.json();
       setLoading(false);
       navigate("/home");
     } catch (e) {
@@ -34,12 +34,7 @@ const Introduce = () => {
   };
 
   return (
-    <Container
-      style={{
-        height: "100%",
-        marginTop: "20px",
-      }}
-    >
+    <>
       <Header>Introduce Yourself.</Header>
       <Input
         as="textarea"
@@ -49,13 +44,14 @@ const Introduce = () => {
       />
       <Button
         appearance="primary"
-        style={{ marginTop: "20px" }}
+        style={{ marginTop: "30px" }}
         loading={loading}
         onClick={submitForm}
+        block
       >
         Next
       </Button>
-    </Container>
+    </>
   );
 };
 

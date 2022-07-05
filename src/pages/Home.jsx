@@ -1,15 +1,15 @@
-import { useState } from "react";
-import { Stack, Container, Input, Avatar, Loader } from "rsuite";
+import { useState, useEffect } from "react";
+import { Input, Loader, InputGroup } from "rsuite";
+import SearchIcon from "@rsuite/icons/Search";
 import { withAuthenticationRequired, useAuth0 } from "@auth0/auth0-react";
+
 import Loading from "../components/Loading";
-import { useEffect } from "react";
-import { useNavigate } from "react-router";
+import UserCard from "../components/UserCard";
 
 const Introduce = () => {
   const { getAccessTokenSilently } = useAuth0();
   const [loading, setLoading] = useState(false);
   const [mentors, setMentors] = useState({});
-  const navigate = useNavigate();
 
   useEffect(() => {
     const getMentors = async () => {
@@ -31,59 +31,49 @@ const Introduce = () => {
   }, []);
 
   return (
-    <Container
-      style={{
-        height: "100%",
-        marginTop: "20px",
-      }}
-    >
-      <Input placeholder="Default Input" style={{ marginTop: "10px" }} />
-      <h4 style={{ marginTop: "10px", marginBottom: "20px" }}>
-        Mentors for you.
-      </h4>
+    <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+      <InputGroup inside>
+        <InputGroup.Button>
+          <SearchIcon />
+        </InputGroup.Button>
+        <Input size="lg" placeholder="Search" />
+      </InputGroup>
+      <h4 style={{ margin: "20px 0px" }}>Mentors for you.</h4>
       {loading ? (
-        <Stack
+        <div
           style={{
             display: "flex",
             flex: "1",
             justifyContent: "center",
+            alignItems: "center",
           }}
         >
           <Loader size="lg" />
-        </Stack>
+        </div>
       ) : (
         <div
-          style={{ padding: "10px", display: "flex", flexDirection: "column" }}
+          style={{
+            display: "flex",
+            flexDirection: "column",
+          }}
         >
           {mentors.length &&
             mentors.map((user, index) => {
               return (
-                <Stack
+                <div
                   style={{
                     marginBottom: "15px",
                     padding: "5px",
                   }}
-                  direction="row"
-                  spacing={20}
-                  justifyContent="flex-start"
-                  onClick={() => {
-                    navigate("/user", { state: user });
-                  }}
+                  key={index}
                 >
-                  <Avatar
-                    key={index}
-                    size="lg"
-                    circle
-                    src={user.picture}
-                    alt={`image of user ${user.name}`}
-                  />
-                  <p style={{ fontWeight: "bold" }}> {user.name}</p>
-                </Stack>
+                  <UserCard user={user} />
+                </div>
               );
             })}
         </div>
       )}
-    </Container>
+    </div>
   );
 };
 

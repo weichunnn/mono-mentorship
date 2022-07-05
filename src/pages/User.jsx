@@ -1,22 +1,26 @@
 import { useLocation, useNavigate } from "react-router";
-import { Avatar, IconButton, Button, Container } from "rsuite";
-import ArowBackIcon from "@rsuite/icons/ArowBack";
+import { Avatar, Container } from "rsuite";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
+import Button from "../components/Button";
+import Loading from "../components/Loading";
+import PageHeaderWithButton from "../components/PageHeaderWithButton";
 
 const User = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  const { name, profile, picture } = location.state;
+  const { name, profile, picture, email } = location.state;
+  const handleClick = () =>
+    navigate("/schedule", { state: { mentorEmail: email } });
+
   return (
-    <>
-      <IconButton
-        icon={<ArowBackIcon />}
-        size="lg"
-        onClick={() => {
-          navigate(-1);
-        }}
-      >
-        Back
-      </IconButton>
+    <div
+      style={{
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+      }}
+    >
+      <PageHeaderWithButton>Back</PageHeaderWithButton>
       <Container style={{ height: "100%" }}>
         <div
           style={{
@@ -33,8 +37,8 @@ const User = () => {
             src={picture}
             alt={`image of user ${name}`}
           />
-          <h4 style={{ margin: "20px" }}> {name}</h4>
-          <Button size="lg" block appearance="primary">
+          <h3 style={{ margin: "20px" }}> {name}</h3>
+          <Button size="lg" block appearance="primary" onClick={handleClick}>
             Schedule a call
           </Button>
         </div>
@@ -47,11 +51,13 @@ const User = () => {
           }}
         >
           <h4>About Me</h4>
-          <p style={{ marginTop: "10px" }}>{[profile]}</p>
+          <p style={{ marginTop: "10px", fontSize: "20px" }}>{[profile]}</p>
         </div>
       </Container>
-    </>
+    </div>
   );
 };
 
-export default User;
+export default withAuthenticationRequired(User, {
+  onRedirecting: () => <Loading />,
+});

@@ -8,7 +8,8 @@ const { auth } = require("express-oauth2-jwt-bearer");
 
 const authConfig = require("./src/auth-config.json");
 const { DB_URL, API_PORT } = require("./config.js");
-const { User } = require("./schema");
+const { User } = require("./schemas/user");
+const { Session } = require("./schemas/session");
 
 const app = express();
 //middleWare
@@ -41,7 +42,7 @@ app.post("/api/user", checkJwt, async (req, res) => {
   let registrationStatus = false;
   if (user == null) {
     const newUser = new User({ ...req.body, profile: null });
-    newUser.save();
+    await newUser.save();
   } else if (user && user.profile != null) registrationStatus = true;
 
   return res.status(200).json({ registrationStatus });
@@ -54,6 +55,12 @@ app.post("/api/user/profile", checkJwt, async (req, res) => {
   );
 
   return res.status(200).json(data);
+});
+
+app.post("/api/session/schedule", checkJwt, async (req, res) => {
+  const newSession = new Session(req.body);
+  await newSession.save();
+  return res.status(200).json(newSession);
 });
 
 app.get("/api/mentors", checkJwt, async (req, res) => {
