@@ -1,6 +1,6 @@
 # Auth0 - MERN Stack Mentorship Platform
 
-A full stack web app designed based upon figma file given with authentication handled by OAuth. Backend is built Node.js (Express) connected to MongoDb Atlas via Mongoose and Frontend is build using React. 2 servers are built, one to serve the static files from React and another to handle all api authentication. In production, this is likely to be hosted on 2 separate servers to handle the traffic.
+A full stack web app designed based upon figma file given with authentication handled by Auth0. Backend is built Node.js (Express) connected to MongoDb Atlas via Mongoose and Frontend is build using React. 2 servers are built, one to serve the static files from React and another to handle all API authentication. In production, this is likely to be hosted on 2 separate servers to handle the traffic.
 
 ## Project Setup
 
