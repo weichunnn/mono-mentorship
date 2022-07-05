@@ -5,7 +5,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const checkJwt = require("./helpers");
 
-const { DB_URL, API_PORT } = require("../config.js");
+const { DB_URL, API_PORT, APP_ORIGIN } = require("./config.js");
 const user = require("./user");
 const session = require("./session");
 
@@ -15,7 +15,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan("combined"));
 app.use(helmet());
-app.use(cors()); //ToDO: cors to allow fe
+app.use(cors({ origin: APP_ORIGIN }));
 
 app.get("/api/public", (req, res) => {
   res.json({
